@@ -1,16 +1,31 @@
-# clone_instagram
+# Clone_instagram
 
-A new Flutter project.
+## Installation préliminaires
 
-## Getting Started
+- installer [flutter](https://docs.flutter.dev/get-started/install?gclid=Cj0KCQiAkMGcBhCSARIsAIW6d0DHDiw2LCkz4d7HJnkG3Bpytnrz1eIOHa11ISyJ9pZ_pga_IJFYWMAaAp9bEALw_wcB&gclsrc=aw.ds) 
+- installer un émulateur android ou ios
 
-This project is a starting point for a Flutter application.
+## Cloner le projet : 
+```
+git clone https://github.com/troccazm/instagram.git
+```
 
-A few resources to get you started if this is your first Flutter project:
+## Démarrer 
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Vérifier d'être dans la branche main 
+```
+git status
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Récupérer les dépendances 
+```
+flutter pub get
+```
+
+Lancer la visualisation 
+```
+flutter run lib/main.dart
+```
+
+Suivre les scénarii d'utilisation situés dans le wiki.
+
