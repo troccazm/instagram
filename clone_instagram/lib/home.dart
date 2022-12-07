@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:clone_instagram/homeStoriesWidget.dart';
 import 'package:clone_instagram/homePostsWidget.dart';
+import 'package:clone_instagram/messages.dart';
 
 class MyHome extends StatelessWidget {
   const MyHome({Key? key}) : super(key: key);
