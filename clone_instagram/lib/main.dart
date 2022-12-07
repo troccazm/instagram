@@ -1,4 +1,6 @@
 import 'package:clone_instagram/home.dart';
+import 'package:clone_instagram/search.dart';
+import 'package:clone_instagram/myProfile.dart';
 import 'package:flutter/material.dart';
 
 void main() {
