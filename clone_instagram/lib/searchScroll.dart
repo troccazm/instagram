@@ -14,8 +14,8 @@ class SearchScroll extends StatefulWidget {
 
 class _SearchScrollState extends State<SearchScroll> {
   //final Posts _myPost = Posts();
-  late bool isLiked = false;
   var publi = SearchWidget().publi;
+  List<bool> isLiked = List.filled(SearchWidget().publi.length, false, growable: true);
 
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -75,7 +75,7 @@ class _SearchScrollState extends State<SearchScroll> {
                             image: AssetImage(e['post']),
                             onChanged: () {
                               setState(() {
-                                isLiked=!isLiked;
+                                isLiked[publi.indexOf(e)]=!isLiked[publi.indexOf(e)];
                               });
                             },
                           ),
@@ -84,7 +84,7 @@ class _SearchScrollState extends State<SearchScroll> {
                             children: [
                               IconButton(
                                 onPressed: (){}, 
-                                icon: isLiked ? const Icon(Icons.favorite, color: Colors.red,)
+                                icon: isLiked[publi.indexOf(e)] ? const Icon(Icons.favorite, color: Colors.red,)
                                 : const Icon(Icons.favorite_outline, color: Colors.white,), 
                               ),
                               IconButton(

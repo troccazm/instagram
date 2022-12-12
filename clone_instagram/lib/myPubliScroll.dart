@@ -14,7 +14,7 @@ class MyPubliScroll extends StatefulWidget {
 
 class _MyPubliScrollState extends State<MyPubliScroll> {
   // final Posts _myPosts = Posts();
-  late bool isLiked = false;
+  List<bool> isLiked = List.filled(MyPubli().mespubli.length, false, growable: true);
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +79,7 @@ class _MyPubliScrollState extends State<MyPubliScroll> {
                             image: AssetImage(e['post']),
                             onChanged: () {
                               setState(() {
-                                isLiked=!isLiked;
+                                isLiked[mespubli.indexOf(e)]=!isLiked[mespubli.indexOf(e)];
                               });
                             },
                           ),
@@ -88,7 +88,7 @@ class _MyPubliScrollState extends State<MyPubliScroll> {
                             children: [
                               IconButton(
                                 onPressed: (){}, 
-                                icon: isLiked ? const Icon(Icons.favorite, color: Colors.red,)
+                                icon: isLiked[mespubli.indexOf(e)] ? const Icon(Icons.favorite, color: Colors.red,)
                                 : const Icon(Icons.favorite_outline, color: Colors.white,), 
                               ),
                               IconButton(

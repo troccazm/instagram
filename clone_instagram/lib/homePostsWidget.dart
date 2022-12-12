@@ -2,165 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:insta_like_button/insta_like_button.dart';
 
 class Posts extends StatefulWidget {
-  const Posts({super.key});
+  Posts({super.key});
 
-  /*postScroll(List l){
-    return SingleChildScrollView(
-      child: Column(
-        children: l.map((e) {
-          return Container(
-            margin: const EdgeInsets.symmetric(vertical: 10),
-            child: Column(
-              children: [
-                // première ligne contenant la photo de profil et le nom
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  child:Row(
-                    children: [
-                      //photo de profil
-                      CircleAvatar(
-                        backgroundColor: Colors.black,
-                        radius:20,
-                        backgroundImage: AssetImage(e['img']),
-                      ),
-                      //espace
-                      const SizedBox(width: 10, ),
-                      //pseudo
-                      Text(
-                        e['pseudo'],
-                        style: const TextStyle(color: Colors.white,),
-                      ),
-                    ],
-                  ),
-                ),
-                // photo postee et interaction (like / comment)
-                Column(
-                    children: [
-                      // photo postee
-                      InstaLikeButton(
-                        image: AssetImage(e['post']),
-                        onChanged: () {
-                          isLiked=!isLiked;
-                        },
-                      ),
-                      // icon d'interaction (like / comment)
-                      Row(
-                        children: [
-                          IconButton(
-                            onPressed: (){
-                              setState(){
-                                isLiked=!isLiked;
-                              }
-                            }, 
-                            icon: isLiked ? const Icon(Icons.favorite, color: Colors.red,)
-                            : const Icon(Icons.favorite_outline, color: Colors.white,), 
-                          ),
-                          IconButton(
-                            onPressed: (){}, 
-                            icon: const Icon(
-                              Icons.comment_outlined,
-                              color: Colors.white,
-                            ),
-                          ),
-                          const Spacer(), //permet de mettre le plus d'espace possible
-                          IconButton(
-                            onPressed: (){}, 
-                            icon: const Icon(
-                              Icons.bookmark_outline,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                // aimé par ..
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal:10, vertical:5),
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.black,
-                        radius:10,
-                        backgroundImage: AssetImage(e['img']),
-                      ),
-                      const SizedBox(width:10),
-                      // utilisation d'un RichText afin de modifier les propriétes de style
-                      // ici mettre en gras une partie du texte
-                      RichText(
-                        text: const TextSpan(
-                          text: 'Aimé par ',
-                          style: TextStyle(color: Colors.white),
-                          children: [
-                            TextSpan(
-                              text: 'ami ',
-                              style: TextStyle(color:Colors.white, fontWeight: FontWeight.bold)
-                            ),
-                            TextSpan(
-                              text: 'et ',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            TextSpan(
-                              text: '110 autres personnes',
-                              style: TextStyle(color:Colors.white, fontWeight: FontWeight.bold)
-                            )
-                          ]
-                        ),
-                      )
-                    ],
-                  ),
-                ),  
-                // description
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical:5),
-                  child: 
-                      Row(
-                        children: [
-                        // condition : si la description est vide on n'affiche pas le pseudo
-                        Text(
-                          e['description'].isEmpty
-                          ? ''
-                          : e['pseudo']+ "  ",
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          e['description'].isEmpty
-                          ? ''
-                          : e['description'],
-                          style: const TextStyle(color: Colors.white),                          
-                          ),
-                      ],)
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical:10),
-                  child: Row(
-                    children: const [
-                      Text(
-                        'voir les 28 commentaires',
-                        style: TextStyle(color: Colors.grey,),
-                      ),
-                    ],
-                  ) 
-                ),
-              ],
-            )
-          );
-        }).toList(),
-      ),
-    );
-  }*/
-  @override
-  State<Posts> createState() => _PostsState();
-}
-
-class _PostsState extends State<Posts> {
-
-  late bool isLiked = false;
-
-  // liste des posts (contient le pseudo, la photo de profil, 
+  // liste des posts (contient le pseudo, la photo de profil, le post et la description)
   final List postsItems = [
     {
       "pseudo": 'elea_c',
@@ -226,13 +70,22 @@ class _PostsState extends State<Posts> {
   ];
 
   @override
+  State<Posts> createState() => _PostsState();
+}
+
+class _PostsState extends State<Posts> {
+
+  List<bool> isLiked = List.filled(Posts().postsItems.length, false, growable: true);
+  var posts = Posts().postsItems;
+
+  @override
   Widget build(BuildContext context) {
 
     // page verticalement scrollable
     //return Posts().postScroll(postsItems);
     return SingleChildScrollView(
       child: Column(
-        children: postsItems.map((e) {
+        children: posts.map((e) {
           return Container(
             margin: const EdgeInsets.symmetric(vertical: 10),
             child: Column(
@@ -266,7 +119,7 @@ class _PostsState extends State<Posts> {
                         image: AssetImage(e['post']),
                         onChanged: () {
                           setState(() {
-                            isLiked=!isLiked;
+                            isLiked[posts.indexOf(e)]=!isLiked[posts.indexOf(e)];
                           });
                         },
                       ),
@@ -275,7 +128,7 @@ class _PostsState extends State<Posts> {
                         children: [
                           IconButton(
                             onPressed: (){}, 
-                            icon: isLiked ? const Icon(Icons.favorite, color: Colors.red,)
+                            icon: isLiked[posts.indexOf(e)] ? const Icon(Icons.favorite, color: Colors.red,)
                             : const Icon(Icons.favorite_outline, color: Colors.white,), 
                           ),
                           IconButton(
