@@ -15,6 +15,7 @@ class MyPubliScroll extends StatefulWidget {
 class _MyPubliScrollState extends State<MyPubliScroll> {
   // final Posts _myPosts = Posts();
   List<bool> isLiked = List.filled(MyPubli().mespubli.length, false, growable: true);
+  List<bool> isSaved = List.filled(MyPubli().mespubli.length, false, growable: true);
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +88,11 @@ class _MyPubliScrollState extends State<MyPubliScroll> {
                           Row(
                             children: [
                               IconButton(
-                                onPressed: (){}, 
+                                onPressed: (){
+                                  setState(() {
+                                    isLiked[mespubli.indexOf(e)]=!isLiked[mespubli.indexOf(e)];
+                                  });
+                                }, 
                                 icon: isLiked[mespubli.indexOf(e)] ? const Icon(Icons.favorite, color: Colors.red,)
                                 : const Icon(Icons.favorite_outline, color: Colors.white,), 
                               ),
@@ -100,11 +105,13 @@ class _MyPubliScrollState extends State<MyPubliScroll> {
                               ),
                               const Spacer(), //permet de mettre le plus d'espace possible
                               IconButton(
-                                onPressed: (){}, 
-                                icon: const Icon(
-                                  Icons.bookmark_outline,
-                                  color: Colors.white,
-                                ),
+                                onPressed: (){
+                                  setState(() {
+                                    isSaved[mespubli.indexOf(e)]=!isSaved[mespubli.indexOf(e)];
+                                  });
+                                }, 
+                                icon: isSaved[mespubli.indexOf(e)] ? const Icon(Icons.bookmark,color: Colors.white,) 
+                                : const Icon(Icons.bookmark_outline, color: Colors.white,)
                               ),
                             ],
                           ),

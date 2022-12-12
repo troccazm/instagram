@@ -76,6 +76,7 @@ class Posts extends StatefulWidget {
 class _PostsState extends State<Posts> {
 
   List<bool> isLiked = List.filled(Posts().postsItems.length, false, growable: true);
+  List<bool> isSaved = List.filled(Posts().postsItems.length, false, growable: true);
   var posts = Posts().postsItems;
 
   @override
@@ -127,7 +128,11 @@ class _PostsState extends State<Posts> {
                       Row(
                         children: [
                           IconButton(
-                            onPressed: (){}, 
+                            onPressed: (){
+                              setState(() {
+                                isLiked[posts.indexOf(e)]=!isLiked[posts.indexOf(e)];
+                              });
+                            }, 
                             icon: isLiked[posts.indexOf(e)] ? const Icon(Icons.favorite, color: Colors.red,)
                             : const Icon(Icons.favorite_outline, color: Colors.white,), 
                           ),
@@ -140,11 +145,13 @@ class _PostsState extends State<Posts> {
                           ),
                           const Spacer(), //permet de mettre le plus d'espace possible
                           IconButton(
-                            onPressed: (){}, 
-                            icon: const Icon(
-                              Icons.bookmark_outline,
-                              color: Colors.white,
-                            ),
+                            onPressed: (){
+                              setState(() {
+                                isSaved[posts.indexOf(e)]=!isSaved[posts.indexOf(e)];
+                              });
+                            }, 
+                            icon: isSaved[posts.indexOf(e)] ? const Icon(Icons.bookmark, color: Colors.white,)
+                            : const Icon(Icons.bookmark_outline, color: Colors.white)
                           ),
                         ],
                       ),
