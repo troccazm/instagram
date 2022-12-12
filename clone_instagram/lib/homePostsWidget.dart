@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:insta_like_button/insta_like_button.dart';
 
-class Posts extends StatelessWidget {
+class Posts extends StatefulWidget {
   Posts({super.key});
 
-  // liste des posts (contient le pseudo, la photo de profil, 
-  // la photo et la description)
+  // liste des posts (contient le pseudo, la photo de profil, le post et la description)
   final List postsItems = [
     {
       "pseudo": 'elea_c',
@@ -69,10 +69,24 @@ class Posts extends StatelessWidget {
 
   ];
 
-  postScroll(List l){
+  @override
+  State<Posts> createState() => _PostsState();
+}
+
+class _PostsState extends State<Posts> {
+
+  List<bool> isLiked = List.filled(Posts().postsItems.length, false, growable: true);
+  List<bool> isSaved = List.filled(Posts().postsItems.length, false, growable: true);
+  var posts = Posts().postsItems;
+
+  @override
+  Widget build(BuildContext context) {
+
+    // page verticalement scrollable
+    //return Posts().postScroll(postsItems);
     return SingleChildScrollView(
       child: Column(
-        children: l.map((e) {
+        children: posts.map((e) {
           return Container(
             margin: const EdgeInsets.symmetric(vertical: 10),
             child: Column(
@@ -102,16 +116,25 @@ class Posts extends StatelessWidget {
                 Column(
                     children: [
                       // photo postee
-                      Image.asset(e['post']),
+                      InstaLikeButton(
+                        image: AssetImage(e['post']),
+                        onChanged: () {
+                          setState(() {
+                            isLiked[posts.indexOf(e)]=!isLiked[posts.indexOf(e)];
+                          });
+                        },
+                      ),
                       // icon d'interaction (like / comment)
                       Row(
                         children: [
                           IconButton(
-                            onPressed: (){}, 
-                            icon: const Icon(
-                              Icons.favorite_outline,
-                              color: Colors.white,
-                              ),
+                            onPressed: (){
+                              setState(() {
+                                isLiked[posts.indexOf(e)]=!isLiked[posts.indexOf(e)];
+                              });
+                            }, 
+                            icon: isLiked[posts.indexOf(e)] ? const Icon(Icons.favorite, color: Colors.red,)
+                            : const Icon(Icons.favorite_outline, color: Colors.white,), 
                           ),
                           IconButton(
                             onPressed: (){}, 
@@ -122,11 +145,13 @@ class Posts extends StatelessWidget {
                           ),
                           const Spacer(), //permet de mettre le plus d'espace possible
                           IconButton(
-                            onPressed: (){}, 
-                            icon: const Icon(
-                              Icons.bookmark_outline,
-                              color: Colors.white,
-                            ),
+                            onPressed: (){
+                              setState(() {
+                                isSaved[posts.indexOf(e)]=!isSaved[posts.indexOf(e)];
+                              });
+                            }, 
+                            icon: isSaved[posts.indexOf(e)] ? const Icon(Icons.bookmark, color: Colors.white,)
+                            : const Icon(Icons.bookmark_outline, color: Colors.white)
                           ),
                         ],
                       ),
@@ -210,10 +235,5 @@ class Posts extends StatelessWidget {
       ),
     );
   }
-
-  @override
-  Widget build(BuildContext context) {
-    // page verticalement scrollable
-    return postScroll(postsItems);
-  }
+ //}
 }

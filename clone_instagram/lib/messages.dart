@@ -1,3 +1,4 @@
+import 'package:clone_instagram/home.dart';
 import 'package:clone_instagram/main.dart';
 import 'package:clone_instagram/messagesWidget.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class MyMessages extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const MyApp()),
+                MaterialPageRoute(builder: (context) => const MyHomePage(title: title,)),
               );
             },
           ),
