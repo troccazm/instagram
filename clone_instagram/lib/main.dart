@@ -1,6 +1,7 @@
 import 'package:clone_instagram/home.dart';
 import 'package:clone_instagram/search.dart';
 import 'package:clone_instagram/myProfile.dart';
+import 'package:clone_instagram/connexion.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: title,
-      home: MyHomePage(title: title),
+      home: Connexion(),
     );
   }
 }
@@ -45,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     _page1 = const MyHome();
-    _page2 = SearchBar();
+    _page2 = const SearchBar();
     _page3 = const MyProfile();
     _pages = [_page1, _page2, _page3];
     _currentIndex = 0;
@@ -85,7 +86,8 @@ class _MyHomePageState extends State<MyHomePage> {
               label: page3,
               icon: Icon(Icons.person),
             ),
-          ]),
+          ]
+        ),
       drawer: Drawer(
         child: Container(
           margin: const EdgeInsets.only(top: 20.0),

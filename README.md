@@ -6,4 +6,3 @@ Notre choix s'est porté sur instagram car il est à la fois un réseau de parta
 De plus en plus de petites entreprise utilisent instagram pour augmenter leur visibilité et attirer une nouvelle clientèle.
 
 Le code se trouve dans le dossier clone_instagram et les documents explicatifs (spécifications fonctionnelles, prototypes, modèle utilisateur et scenarii d'utilisation) se trouvent dans le wiki du projet.
-
