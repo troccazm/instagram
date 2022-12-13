@@ -18,10 +18,7 @@ class MyMessages extends StatelessWidget {
           leading: IconButton(
             icon: const Icon(Icons.chevron_left),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const MyHomePage(title: title,)),
-              );
+              Navigator.pop(context);
             },
           ),
           //mon pseudo
